@@ -1,0 +1,142 @@
+ENTENDENDO O MensagemController
+===============================
+
+O CÓDIGO
+--------
+
+    package com.example.meu_primeiro_springboot.controller;
+
+    import com.example.meu_primeiro_springboot.service.MensagemService;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RestController;
+
+    @RestController
+    @RequestMapping("/api")
+    public class MensagemController {
+
+        private final MensagemService mensagemService;
+
+        public MensagemController(MensagemService mensagemService){
+            this.mensagemService = mensagemService;
+        }
+
+        @GetMapping("/mensagem")
+        public String mensagem (){
+            return mensagemService.obterMensagem();
+        }
+
+    }
+
+
+PARA QUE SERVE UM CONTROLLER?
+-----------------------------
+
+O Controller é a PORTA DE ENTRADA do sistema. Ele recebe os
+pedidos que chegam de fora (navegador, Postman, um app) e devolve
+a resposta.
+
+Pense num restaurante:
+  - o Controller é o garçom: anota o pedido e leva ao cozinheiro;
+  - o Service é o cozinheiro: faz a receita.
+
+O garçom não cozinha. Do mesmo jeito, o Controller não deve ter
+regras: ele só recebe o pedido, chama o Service e devolve o que
+o Service respondeu.
+
+
+LINHA POR LINHA
+---------------
+
+package com.example.meu_primeiro_springboot.controller;
+  -> A classe mora na pasta "controller". Assim, tudo que recebe
+     pedidos de fora fica num lugar só.
+
+import com.example.meu_primeiro_springboot.service.MensagemService;
+  -> Traz a classe do Service, porque o Controller vai usá-la.
+
+import ...GetMapping; import ...RequestMapping; import ...RestController;
+  -> Trazem as anotações do Spring usadas na classe.
+
+@RestController
+  -> Avisa o Spring duas coisas:
+     1) "crie e cuide desta classe" (igual @Service e @Repository);
+     2) "esta classe responde pedidos da web, e o que os métodos
+        retornarem vai direto como resposta" (texto ou JSON).
+
+@RequestMapping("/api")
+  -> Define um "prefixo" para todos os endereços desta classe.
+     Tudo aqui dentro começa com /api.
+
+private final MensagemService mensagemService;
+  -> Um espaço para guardar o Service.
+     "private" = só esta classe usa.
+     "final"   = depois de preenchido, não pode ser trocado.
+
+public MensagemController(MensagemService mensagemService){
+    this.mensagemService = mensagemService;
+}
+  -> O CONSTRUTOR. Mesma ideia do Service:
+
+     Você não escreve "new MensagemService()" em lugar nenhum.
+     Quando o Spring vai criar o Controller, vê que ele precisa de
+     um MensagemService. Ele já criou um (por causa do @Service),
+     então entrega esse. Isso é a INJEÇÃO DE DEPENDÊNCIA.
+
+@GetMapping("/mensagem")
+  -> Liga um ENDEREÇO a este método.
+     "Get" é o tipo de pedido que o navegador faz quando você
+     digita um endereço e aperta Enter (pedido de "me mostre algo").
+
+     Juntando com o @RequestMapping("/api") lá de cima, o endereço
+     completo fica:
+
+         http://localhost:8080/api/mensagem
+
+     (8080 é a porta padrão do Spring Boot.)
+
+public String mensagem (){
+    return mensagemService.obterMensagem();
+}
+  -> Pede a mensagem para o Service e devolve como resposta.
+     O texto retornado é o que aparece no navegador.
+
+
+A INTERAÇÃO COM O SERVICE
+-------------------------
+
+1) O programa inicia.
+2) O Spring cria o Repository, depois o Service, depois o
+   Controller, entregando a cada um o que ele precisa.
+3) Você acessa http://localhost:8080/api/mensagem no navegador.
+4) O Spring vê que esse endereço é do método mensagem() e o chama:
+
+    Navegador  --GET /api/mensagem-->  MensagemController
+                                              |
+                                     mensagemService.obterMensagem()
+                                              |
+                                              v
+                                        MensagemService
+                                              |
+                                              v
+                                       MensagemRepository
+                                              |
+                                     "Olá do repositório"
+                                              |
+    Navegador  <--"Olá do repositório"-- (volta pelo mesmo caminho)
+
+O Controller não sabe de onde vem a mensagem nem que regras
+existem. Ele só recebe o pedido e repassa. Cada camada faz só
+a sua parte.
+
+
+RESUMO
+------
+
+- Controller = porta de entrada (o garçom).
+- @RestController = o Spring cria a classe e ela responde pedidos web.
+- @RequestMapping("/api") = prefixo dos endereços da classe.
+- @GetMapping("/mensagem") = liga o endereço /api/mensagem ao método.
+- Recebe o Service pelo construtor (injeção de dependência),
+  sem usar "new".
+- Não tem regras: só recebe, chama o Service e devolve.

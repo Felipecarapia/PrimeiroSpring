@@ -1,0 +1,70 @@
+ENTENDENDO O MensagemRepository
+================================
+
+O CÓDIGO
+--------
+
+    package com.example.meu_primeiro_springboot.repository;
+
+    import org.springframework.stereotype.Repository;
+
+    @Repository
+    public class MensagemRepository {
+
+        public String obterMensagem(){
+            return "Olá do repositório";
+        }
+    }
+
+
+PARA QUE SERVE UM REPOSITORY?
+-----------------------------
+
+O Repository é a parte do sistema que BUSCA e GUARDA dados.
+Só isso. Ele não decide nada e não fala com o navegador.
+
+Pense numa despensa: você pede um ingrediente e ela te entrega.
+Ela não sabe qual receita você vai fazer.
+
+Hoje ele devolve um texto fixo ("Olá do repositório") só para
+simular. No futuro, é aqui que você vai buscar coisas no banco
+de dados.
+
+
+LINHA POR LINHA
+---------------
+
+package com.example.meu_primeiro_springboot.repository;
+  -> Diz em qual pasta a classe está: a pasta "repository".
+     Separar em pastas deixa o projeto organizado: quem procura
+     código de acesso a dados já sabe onde olhar.
+
+import org.springframework.stereotype.Repository;
+  -> Traz a anotação @Repository do Spring para poder usar.
+
+@Repository
+  -> A parte mais importante. Ela avisa o Spring:
+     "esta classe é um repositório, cuide dela para mim".
+
+     Com isso, o Spring cria sozinho um objeto dessa classe quando
+     o programa inicia. Você não precisa escrever
+     "new MensagemRepository()". Quando outra classe precisar dele,
+     o Spring entrega pronto.
+
+public class MensagemRepository
+  -> A classe em si. O nome termina em "Repository" por
+     convenção, para deixar claro o papel dela.
+
+public String obterMensagem()
+  -> Um método que devolve um texto (String).
+     Ele representa o "buscar dado". Quem chamar esse método
+     recebe "Olá do repositório".
+
+
+RESUMO
+------
+
+- Repository = camada que cuida dos dados.
+- @Repository = faz o Spring criar e gerenciar a classe sozinho.
+- Fica na pasta "repository" para manter o projeto organizado.
+- Hoje devolve um texto fixo; depois vai conversar com um banco.

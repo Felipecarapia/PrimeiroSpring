@@ -1,0 +1,113 @@
+ENTENDENDO O MensagemService
+============================
+
+O CÓDIGO
+--------
+
+    package com.example.meu_primeiro_springboot.service;
+
+    import com.example.meu_primeiro_springboot.repository.MensagemRepository;
+    import org.springframework.stereotype.Service;
+
+    @Service
+    public class MensagemService {
+
+        private final MensagemRepository mensagemRepository;
+
+        public MensagemService (MensagemRepository mensagemRepository){
+            this.mensagemRepository = mensagemRepository;
+        }
+
+        public String obterMensagem (){
+            return mensagemRepository.obterMensagem();
+        }
+    }
+
+
+PARA QUE SERVE UM SERVICE?
+--------------------------
+
+O Service é o "cérebro" do sistema. É onde ficam as REGRAS:
+validar, calcular, decidir o que fazer.
+
+Pense numa cozinha:
+  - o Repository é a despensa: só guarda e entrega ingredientes;
+  - o Service é o cozinheiro: pega os ingredientes na despensa e
+    faz a receita.
+
+Hoje o seu Service só repassa o que o Repository devolveu, porque
+ainda não há regra nenhuma. Mas é aqui que ela entraria. Exemplo:
+"se a mensagem estiver vazia, devolva 'Sem mensagem'".
+
+
+LINHA POR LINHA
+---------------
+
+package com.example.meu_primeiro_springboot.service;
+  -> A classe mora na pasta "service". Assim, toda regra de
+     negócio fica num lugar só.
+
+import com.example.meu_primeiro_springboot.repository.MensagemRepository;
+  -> Traz a classe do Repository, porque o Service vai usá-la.
+
+import org.springframework.stereotype.Service;
+  -> Traz a anotação @Service do Spring.
+
+@Service
+  -> Avisa o Spring: "crie um objeto desta classe e cuide dele".
+     Você não precisa escrever "new MensagemService()" em lugar
+     nenhum. É a mesma ideia do @Repository, só que indica que
+     esta classe é a das regras.
+
+private final MensagemRepository mensagemRepository;
+  -> Um espaço para guardar o Repository.
+     "private" = só esta classe usa.
+     "final"   = depois de preenchido, não pode ser trocado.
+
+public MensagemService (MensagemRepository mensagemRepository){
+    this.mensagemRepository = mensagemRepository;
+}
+  -> O CONSTRUTOR. Esta é a parte mais importante.
+
+     Repare: em lugar nenhum você escreve
+     "new MensagemRepository()". Então quem entrega o Repository?
+
+     O SPRING. Quando ele vai criar o MensagemService, vê que o
+     construtor pede um MensagemRepository. Ele já tinha criado um
+     (por causa do @Repository), então entrega esse.
+
+     Isso se chama INJEÇÃO DE DEPENDÊNCIA: o Spring "injeta" o que
+     a classe precisa. "this.mensagemRepository = ..." só guarda o
+     que chegou no espaço criado acima.
+
+public String obterMensagem (){
+    return mensagemRepository.obterMensagem();
+}
+  -> Pede a mensagem para o Repository e devolve para quem chamou.
+
+
+A INTERAÇÃO COM O REPOSITORY
+----------------------------
+
+1) O programa inicia.
+2) O Spring cria o MensagemRepository (tem @Repository).
+3) O Spring vai criar o MensagemService (tem @Service), vê que
+   ele precisa de um MensagemRepository e entrega o que criou.
+4) Quando alguém chama service.obterMensagem():
+
+    MensagemService  --obterMensagem()-->  MensagemRepository
+                     <--"Olá do repositório"--
+
+O Service não sabe DE ONDE vem o dado (texto fixo, banco...).
+Ele só pede. Se um dia o Repository passar a buscar no banco,
+o Service continua igual. É por isso que se separa em camadas.
+
+
+RESUMO
+------
+
+- Service = camada das regras (o cozinheiro).
+- @Service = faz o Spring criar e gerenciar a classe.
+- Recebe o Repository pelo construtor (injeção de dependência),
+  sem usar "new".
+- Hoje só repassa a mensagem; regras novas entram aqui.
