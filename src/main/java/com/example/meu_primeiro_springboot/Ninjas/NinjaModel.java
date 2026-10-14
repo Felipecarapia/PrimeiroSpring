@@ -17,7 +17,12 @@ public class NinjaModel {
     private String nome;
     private String email;
     private int idade;
-    private List<MissoesModel> missoes;
+    //private List<MissoesModel> missoes;
+
+    //@ManyToOne -> "Many"(muitos) ninjas tem "One"(uma) missão
+    @ManyToOne
+    @JoinColumn(name = "missoes_id") // FK
+    private MissoesModel missoes;
 
     public NinjaModel(){
 
