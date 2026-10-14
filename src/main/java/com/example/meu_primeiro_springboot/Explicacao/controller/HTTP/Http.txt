@@ -1,0 +1,8 @@
+
+O Método http tem comandos que dizem ao servidor qual ação ele vai fazer naquela requisição
+
+GET    /produtos --> Recuperar todos os produtos de um cadastro
+POST   /produtos --> Inclusão de um novo produto
+PUT    /produtos --> Alteração de dados (Alteração total)
+PATCH  /produtos --> Alteração de dados (Alteração parcial)
+DELETE /produtos --> excluir um produto
