@@ -1,4 +1,4 @@
-package com.example.meu_primeiro_springboot.controller;
+package com.example.meu_primeiro_springboot.Ninjas;
 
 
 
