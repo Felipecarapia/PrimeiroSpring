@@ -1,9 +1,9 @@
+
 package com.example.meu_primeiro_springboot.Ninjas;
+
 
 import com.example.meu_primeiro_springboot.Missoes.MissoesModel;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 // Entity transforma uma classe em uma entidade do BD
 // Nesse caso aqui transformei uma classe em uma entidade
@@ -58,3 +58,4 @@ public class NinjaModel {
         this.idade = idade;
     }
 }
+
