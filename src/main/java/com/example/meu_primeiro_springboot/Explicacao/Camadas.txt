@@ -1,0 +1,12 @@
+Então temos 3 camadas:
+
+Controller -> Camada de apresentação onde o cliente vai ver e faer o que deseja
+
+Service -> Camada onde tem toda regra e lógica de negócio ou seja o cliente manda o que deseja
+para o controller e ele manda para o service e ele verifica.
+
+    -Model -> fica entre o service e o repository
+    -DTO -> fica entre o service e o repository, são objetos tipo model porém não tem persistencia no BD
+
+Repository -> Camada de persistencia é onde grava tudo que o usuário cadastrou
+e se conecta com o Banco de Dados e coloca essa informações
