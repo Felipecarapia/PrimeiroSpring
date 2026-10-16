@@ -4,11 +4,17 @@ package com.example.meu_primeiro_springboot.Ninjas;
 
 import com.example.meu_primeiro_springboot.Missoes.MissoesModel;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 // Entity transforma uma classe em uma entidade do BD
-// Nesse caso aqui transformei uma classe em uma entidade
 @Entity
 @Table(name = "tb_cadastro_de_ninjas")
+@Data // cria automaticamente os get e set
+@NoArgsConstructor // cria automaticamente um construtor sem parametros
+@AllArgsConstructor // cria automaticamente um costrutor com todos os parametro/atributos
 public class NinjaModel {
 
     @Id
@@ -21,41 +27,9 @@ public class NinjaModel {
 
     //@ManyToOne -> "Many"(muitos) ninjas tem "One"(uma) missão
     @ManyToOne
-    @JoinColumn(name = "missoes_id") // FK
-    private MissoesModel missoes;
+    @JoinColumn(name = "missoes_id") // FK - aqui é a criação da coluna missoe_id onde junta a missao com ninja ou seja toda vez que clicar nessa FK vamos pegar informações das duas tabelas
+    private MissoesModel missoes;  // essa coluna de missoes estar relacionada com o mappedB da class MissoesModel assim pegando apenas a missão relacionada ao ninja
 
-    public NinjaModel(){
 
-    }
-
-    public NinjaModel(String nome, String email, int idade) {
-        this.nome = nome;
-        this.email = email;
-        this.idade = idade;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
 }
 

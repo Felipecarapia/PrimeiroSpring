@@ -3,11 +3,17 @@ package com.example.meu_primeiro_springboot.Missoes;
 
 import com.example.meu_primeiro_springboot.Ninjas.NinjaModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_cadastro_missoes")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MissoesModel {
 
     @Id
@@ -18,42 +24,9 @@ public class MissoesModel {
 
     //@OneToMany -> "One" (Uma) missão tem "Many" (varios) ninjas
     @OneToMany(mappedBy = "missoes")
-    private List <NinjaModel> ninjas;
+    //mappedB - aqui é onde faz a ligação o nome é missoes ou seja a coluna onde vai ser colocado as missoes dos ninjas na class NinjaModel deve se chamar missoes
+    private List <NinjaModel>  ninjas;  // é colocado uma list já que um missao tem vários ninjas
 
-
-    public MissoesModel(){
-
-    }
-
-    public MissoesModel(Long id, String nomeMissao, String dificuldade) {
-        this.id = id;
-        this.nomeMissao = nomeMissao;
-        this.dificuldade = dificuldade;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNomeMissao() {
-        return nomeMissao;
-    }
-
-    public void setNomeMissao(String nomeMissao) {
-        this.nomeMissao = nomeMissao;
-    }
-
-    public String getDificuldade() {
-        return dificuldade;
-    }
-
-    public void setDificuldade(String dificuldade) {
-        this.dificuldade = dificuldade;
-    }
 }
 
 
