@@ -24,7 +24,7 @@ public class MissoesModel {
 
     //@OneToMany -> "One" (Uma) missão tem "Many" (varios) ninjas
     @OneToMany(mappedBy = "missoes")
-    //mappedB - aqui é onde faz a ligação o nome é missoes ou seja a coluna onde vai ser colocado as missoes dos ninjas na class NinjaModel deve se chamar missoes
+    //mappedBy - aqui é onde faz a ligação o nome é missoes ou seja a coluna onde vai ser colocado as missoes dos ninjas na class NinjaModel deve se chamar missoes
     private List <NinjaModel>  ninjas;  // é colocado uma list já que um missao tem vários ninjas
 
 }
