@@ -1,4 +1,4 @@
 package com.example.meu_primeiro_springboot.Ninjas;
 
-public class NinjaRepository {
+public interface NinjaRepository {
 }
