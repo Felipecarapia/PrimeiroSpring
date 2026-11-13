@@ -2,6 +2,7 @@ package com.example.meu_primeiro_springboot.Missoes;
 
 
 import com.example.meu_primeiro_springboot.Ninjas.NinjaModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class MissoesModel {
     //@OneToMany -> "One" (Uma) missão tem "Many" (varios) ninjas
     @OneToMany(mappedBy = "missoes")
     //mappedBy - aqui é onde faz a ligação o nome é missoes ou seja a coluna onde vai ser colocado as missoes dos ninjas na class NinjaModel deve se chamar missoes
+    @JsonIgnore //tira o erro de loop de serealização
     private List <NinjaModel>  ninjas;  // é colocado uma list já que um missao tem vários ninjas
 
 }

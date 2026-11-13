@@ -4,10 +4,18 @@ package com.example.meu_primeiro_springboot.Ninjas;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class NinjaController {
 
+
+    private final NinjaService ninjaService;
+
+    public NinjaController(NinjaService ninjaService) {
+        this.ninjaService = ninjaService;
+    }
 
     @GetMapping("/boasvindas") // anotação que pegar infirmações
      public  String boasVindas (){
@@ -21,13 +29,14 @@ public class NinjaController {
     }
 
     // Mostrar todos os ninjas (READ) ----------- GET
-    @GetMapping("/Mostrar")
-    public String mostrar(){
-        return "ninja mostrado";
-    }
+    @GetMapping("/listar")
+        public List<NinjaModel> listarNinjas() {
+            return ninjaService.listarNinjas();
+        }
+
     // Mostrar ninja com ID (READ) ------------ GET
-    @GetMapping("/MostrarID")
-    public String mostrarID(){
+    @GetMapping("/listarID")
+    public String listarID(){
         return "ninja mostrado com ID";
     }
 
