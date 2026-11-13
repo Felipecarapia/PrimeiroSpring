@@ -4,6 +4,7 @@ package com.example.meu_primeiro_springboot.Ninjas;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NinjaService {
@@ -19,4 +20,9 @@ public class NinjaService {
         return ninjaRepository.findAll(); //esse findAll é como se fose o SELECT fazendo query
     }
 
+    // Listar ninjas por Id
+    public NinjaModel listaNinjaId (long id){
+        Optional<NinjaModel> ninjaPorId = ninjaRepository.findById(id);
+        return ninjaPorId.orElse(null);
+    }
 }
