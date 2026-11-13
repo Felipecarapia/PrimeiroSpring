@@ -24,8 +24,8 @@ public class NinjaController {
 
     // Adicionar ninja (CREAT) -----------POST
     @PostMapping("/adicionar")
-    public String adicionar(){
-        return "ninja adicionado";
+    public NinjaModel criarNinja(NinjaModel ninja){
+        return NinjaService.criarNi
     }
 
     // Mostrar todos os ninjas (READ) ----------- GET
