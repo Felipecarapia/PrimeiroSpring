@@ -24,8 +24,11 @@ public class NinjaController {
 
     // Adicionar ninja (CREAT) -----------POST
     @PostMapping("/adicionar")
-    public NinjaModel criarNinja(NinjaModel ninja){
-        return NinjaService.criarNi
+    public NinjaModel criarNinja(@RequestBody NinjaModel ninja){
+        // @RequestBody: pega o JSON enviado no corpo (body) da requisição
+        // e converte automaticamente em um objeto NinjaModel.
+        // Sem essa anotação, o objeto chega com os campos null.
+        return ninjaService.criarNinja(ninja);
     }
 
     // Mostrar todos os ninjas (READ) ----------- GET
@@ -37,6 +40,9 @@ public class NinjaController {
     // Mostrar ninja com ID (READ) ------------ GET
     @GetMapping("/listar/{id}")
     public NinjaModel listarNinjasPorId(@PathVariable long id) {
+        // @PathVariable: pega o valor que vem na própria URL, no lugar de {id},
+        // e coloca na variável "id" do método.
+        // Exemplo: GET /ninjas/listar/5  ->  id = 5
         return ninjaService.listaNinjaId(id);
     }
     //Alterar dado do ninja (UPDATE) ----------------- PUT
