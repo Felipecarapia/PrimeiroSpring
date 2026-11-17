@@ -23,10 +23,15 @@ public class NinjaService {
     // Listar ninjas por Id
     public NinjaModel listaNinjaId (long id){
         Optional<NinjaModel> ninjaPorId = ninjaRepository.findById(id);
+        // Optional = caixinha que pode ter o ninja ou estar vazia (se o id não existir).
+        // orElse(null) -> retorna o ninja se existir, senão retorna null.
         return ninjaPorId.orElse(null);
     }
 
     public NinjaModel criarNinja (NinjaModel ninja){
         return ninjaRepository.save(ninja);
+    }
+    public void  deltarNinjaPorId (long id){
+        ninjaRepository.deleteById(id);
     }
 }

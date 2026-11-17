@@ -23,7 +23,7 @@ public class NinjaController {
      }
 
     // Adicionar ninja (CREAT) -----------POST
-    @PostMapping("/adicionar")
+    @PostMapping("/criar")
     public NinjaModel criarNinja(@RequestBody NinjaModel ninja){
         // @RequestBody: pega o JSON enviado no corpo (body) da requisição
         // e converte automaticamente em um objeto NinjaModel.
@@ -52,9 +52,9 @@ public class NinjaController {
     }
 
     // Deletar Ninja (DELETE) ----------------- DELETE
-    @DeleteMapping("/delete")
-    public String delete(){
-        return "ninja deletado";
+    @DeleteMapping("/deletar/{id}")
+    public void deletarNinjaPorId(@PathVariable long id){
+        ninjaService.deltarNinjaPorId(id);
     }
 }
 
