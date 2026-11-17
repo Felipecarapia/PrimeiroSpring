@@ -15,7 +15,7 @@ public class NinjaService {
         this.ninjaRepository = ninjaRepository;
     }
 
-    //Listar ninjas
+    // Listar ninjas
     public List<NinjaModel> listarNinjas(){
         return ninjaRepository.findAll(); //esse findAll é como se fose o SELECT fazendo query
     }
@@ -28,10 +28,17 @@ public class NinjaService {
         return ninjaPorId.orElse(null);
     }
 
+    // Criar ninja
     public NinjaModel criarNinja (NinjaModel ninja){
         return ninjaRepository.save(ninja);
     }
+
+    // Deletar ninja --> Tem que ser VOID porque não retorna nada apenas faz a query do banco
     public void  deltarNinjaPorId (long id){
         ninjaRepository.deleteById(id);
     }
+
+    // Atualiar ninja
+
+
 }
