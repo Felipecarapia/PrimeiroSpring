@@ -24,7 +24,7 @@ public class NinjaController {
 
     // Adicionar ninja (CREAT) -----------POST
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninja){
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja){
         // @RequestBody: pega o JSON enviado no corpo (body) da requisição
         // e converte automaticamente em um objeto NinjaModel.
         // Sem essa anotação, o objeto chega com os campos null.

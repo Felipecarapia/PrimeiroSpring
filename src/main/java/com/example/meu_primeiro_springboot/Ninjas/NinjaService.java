@@ -10,9 +10,11 @@ import java.util.Optional;
 public class NinjaService {
 
     private NinjaRepository ninjaRepository;
+    private NinjaMapper ninjaMapper;
 
-    public NinjaService(NinjaRepository ninjaRepository){
+    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper){
         this.ninjaRepository = ninjaRepository;
+        this.ninjaMapper = ninjaMapper;
     }
 
     // Listar ninjas
@@ -29,8 +31,11 @@ public class NinjaService {
     }
 
     // Criar ninja
-    public NinjaModel criarNinja (NinjaModel ninja){
-        return ninjaRepository.save(ninja);
+    public NinjaDTO criarNinja (NinjaDTO ninjaDTO){
+        NinjaModel ninja = ninjaMapper.mapeandoNinjaModel(ninjaDTO); // NinjaModel recebe os valores de NinjaDTO
+        ninja = ninjaRepository.save(ninja);
+        return ninjaMapper.mapeandoNinjaDTO(ninja);
+
     }
 
     // Deletar ninja --> Tem que ser VOID porque não retorna nada apenas faz a query do banco
