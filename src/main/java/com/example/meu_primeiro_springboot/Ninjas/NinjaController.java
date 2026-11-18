@@ -2,6 +2,9 @@ package com.example.meu_primeiro_springboot.Ninjas;
 
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,11 +27,10 @@ public class NinjaController {
 
     // Adicionar ninja (CREAT) -----------POST
     @PostMapping("/criar")
-    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja){
-        // @RequestBody: pega o JSON enviado no corpo (body) da requisição
-        // e converte automaticamente em um objeto NinjaModel.
-        // Sem essa anotação, o objeto chega com os campos null.
-        return ninjaService.criarNinja(ninja);
+    public ResponseEntity<String> criarNinja(@RequestBody NinjaDTO ninja){
+        NinjaDTO novoNinja = ninjaService.criarNinja(ninja);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Ninja criado com sucesso: " + "ID: " + novoNinja.getId());
     }
 
     // Mostrar todos os ninjas (READ) ----------- GET
@@ -52,9 +54,16 @@ public class NinjaController {
     }
 
     // Deletar Ninja (DELETE) ----------------- DELETE
+
     @DeleteMapping("/deletar/{id}")
-    public void deletarNinjaPorId(@PathVariable Long id){
-        ninjaService.deltarNinjaPorId(id);
+    public ResponseEntity<String> deletarNinjaPorId(@PathVariable Long id) {
+        if (ninjaService.listaNinjaId(id) != null) {
+            ninjaService.deltarNinjaPorId(id);
+            return ResponseEntity.ok("Ninja deletado com sucesso. ID: " + id);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("O ninja com o id " + id + " não foi encontrado");
+        }
     }
 }
 
