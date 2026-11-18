@@ -33,13 +33,13 @@ public class NinjaController {
 
     // Mostrar todos os ninjas (READ) ----------- GET
     @GetMapping("/listar")
-        public List<NinjaModel> listarNinjas() {
+        public List<NinjaDTO> listarNinjas() {
             return ninjaService.listarNinjas();
         }
 
     // Mostrar ninja com ID (READ) ------------ GET
     @GetMapping("/listar/{id}")
-    public NinjaModel listarNinjasPorId(@PathVariable long id) {
+    public NinjaDTO listarNinjasPorId(@PathVariable Long id) {
         // @PathVariable: pega o valor que vem na própria URL, no lugar de {id},
         // e coloca na variável "id" do método.
         // Exemplo: GET /ninjas/listar/5  ->  id = 5
@@ -47,13 +47,13 @@ public class NinjaController {
     }
     //Alterar dado do ninja (UPDATE) ----------------- PUT
     @PutMapping("/alterar")
-    public String alterar(){
-        return "ninja alterado";
+    public NinjaDTO atualizarNinja (long id, NinjaDTO ninjaDTO){
+        return ninjaService.atualizarNinja(id, ninjaDTO);
     }
 
     // Deletar Ninja (DELETE) ----------------- DELETE
     @DeleteMapping("/deletar/{id}")
-    public void deletarNinjaPorId(@PathVariable long id){
+    public void deletarNinjaPorId(@PathVariable Long id){
         ninjaService.deltarNinjaPorId(id);
     }
 }

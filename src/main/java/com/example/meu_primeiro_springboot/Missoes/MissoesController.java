@@ -23,7 +23,7 @@ public class MissoesController {
 
     // Listar missões por id
     @GetMapping("/listar/{Id}")
-    public MissoesModel ListarMissoesId (@PathVariable long Id){
+    public MissoesModel ListarMissoesId (@PathVariable Long Id){
         return missoesService.ListarMissoesId(Id);
     }
 
@@ -34,7 +34,7 @@ public class MissoesController {
     }
 
     @DeleteMapping("/deletar/{Id}")
-    public void DeletarMissoesId ( @PathVariable long Id){
+    public void DeletarMissoesId ( @PathVariable Long Id){
         missoesService.deletarMissoesId(Id);
     }
 

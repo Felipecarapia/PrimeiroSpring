@@ -23,7 +23,7 @@ public class MissoesService {
     }
 
     //Listar missoes por Id
-    public MissoesModel ListarMissoesId (long Id){
+    public MissoesModel ListarMissoesId (Long Id){
         Optional<MissoesModel> missoesPorId = missoesRepository.findById(Id);
         return missoesPorId.orElse(null);
     }
@@ -37,7 +37,7 @@ public class MissoesService {
     }
 
     // Deletar missoes
-    public void deletarMissoesId (long Id){
+    public void deletarMissoesId (Long Id){
         missoesRepository.deleteById(Id);
     }
 }
