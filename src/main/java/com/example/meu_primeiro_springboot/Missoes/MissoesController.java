@@ -29,7 +29,7 @@ public class MissoesController {
 
     // Criar missões
     @PostMapping("/criar")
-    public MissoesModel CriarMissoes (@RequestBody MissoesModel missoes){
+    public MissoesDTO CriarMissoes (@RequestBody MissoesDTO missoes){
         return missoesService.CriarMissoes(missoes);
     }
 
