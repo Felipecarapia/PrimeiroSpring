@@ -46,7 +46,7 @@ public class NinjaController {
         return ninjaService.listaNinjaId(id);
     }
     //Alterar dado do ninja (UPDATE) ----------------- PUT
-    @PutMapping("/alterar")
+    @PutMapping("/atualizar")
     public NinjaDTO atualizarNinja (long id, NinjaDTO ninjaDTO){
         return ninjaService.atualizarNinja(id, ninjaDTO);
     }

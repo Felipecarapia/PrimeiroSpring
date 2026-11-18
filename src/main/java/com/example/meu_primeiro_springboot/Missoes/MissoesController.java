@@ -17,13 +17,13 @@ public class MissoesController {
 
     // Listar missões
     @GetMapping("/listar")
-    public List<MissoesModel> ListarMissoes (){
+    public List<MissoesDTO> ListarMissoes (){
         return missoesService.ListarMissoes();
     }
 
     // Listar missões por id
     @GetMapping("/listar/{Id}")
-    public MissoesModel ListarMissoesId (@PathVariable Long Id){
+    public MissoesDTO ListarMissoesId (@PathVariable Long Id){
         return missoesService.ListarMissoesId(Id);
     }
 
@@ -31,6 +31,11 @@ public class MissoesController {
     @PostMapping("/criar")
     public MissoesDTO CriarMissoes (@RequestBody MissoesDTO missoes){
         return missoesService.CriarMissoes(missoes);
+    }
+
+    @PutMapping("/atualizar")
+    public MissoesDTO atualizarMissoes (Long id, MissoesDTO missoesDTO){
+        return missoesService.atualizarMissoes(id, missoesDTO);
     }
 
     @DeleteMapping("/deletar/{Id}")
