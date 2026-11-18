@@ -28,6 +28,9 @@ public class NinjaModel {
     @Column (name = "img_url")
     private String imgUrl;
 
+    @Column(name = "rank")
+    private String rank;
+
     @Column(unique = true) // Estou dizendo que essa coluna é única ou seja não permite emails repetidos
     private String email;
 
